@@ -7,48 +7,69 @@ description: Extract legacy Java business capabilities into Node.js/TypeScript s
 
 ## Goal
 
-Extract one named Java capability into a focused TypeScript service without expanding ownership beyond the agreed boundary.
+Deliver a focused vertical slice for one extracted Java capability: source-of-truth analysis, TypeScript service, contract tests, runtime endpoint proof, and an optional note for future adapter/UI integration.
 
-## Workflow
+## Start Here
 
-1. Name the capability and demo-critical path.
-2. Identify Java source-of-truth classes, immediate collaborators, and nearby tests.
-3. Define ownership: new service owns, Broadleaf keeps, adapter translates.
-4. Extract behavior rules, defaults, error cases, and edge cases.
-5. Design service endpoints, DTOs, and response/error shapes.
-6. Implement a small TypeScript vertical slice with modular business logic.
-7. Translate legacy tests into service API or contract tests.
-8. Run API tests first, then runtime endpoint smoke checks.
-9. Add or plan a thin Java adapter only after the service contract is proven.
-10. If a demo UI is involved, smoke test the UI last.
+1. Restate the named capability and demo-critical proof path.
+2. Apply `service-extraction-boundary`, `legacy-behavior-source`, and `service-contract-testing` rules.
+3. Create or switch to a dedicated feature branch before implementation edits.
+4. Before editing, summarize likely files/directories to touch and verification commands.
 
-## Subagent Choreography
+## Required Subagent Sequence
 
-Use reusable agents when the task benefits from parallel work:
+Launch the read-only analysis agents in parallel when possible:
 
-- `legacy-behavior-investigator`: legacy behavior, edge cases, source files.
-- `api-contract-designer`: endpoints, DTOs, examples, error semantics.
-- `test-migration-agent`: legacy tests mapped to service tests.
-- `service-runtime-smoke`: starts or verifies the service and hits endpoints.
-- `adapter-planner`: minimal adapter/facade design.
-- `demo-narrative-reviewer`: final customer-facing story and risks.
+1. `legacy-behavior-investigator`
+   - Identify source-of-truth Java classes, tests, behavior rules, and edge cases.
+2. `api-contract-designer`
+   - Propose endpoints, DTOs, response/error shapes, and example payloads.
+3. `test-migration-agent`
+   - Map legacy tests to service API/contract tests.
+4. `adapter-planner`
+   - Use only when the user explicitly asks for adapter work. Otherwise, record what future adapter seam would be likely without implementing it.
 
-## Implementation Guardrails
+## Plan Mode Checkpoint
 
-- Keep service logic independent from Broadleaf entities; use DTOs at boundaries.
-- Do not move unrelated catalog, cart, checkout, payment, tax, or inventory ownership.
-- Prefer explicit validation and deterministic calculations over hidden framework behavior.
-- Keep the adapter thin: object translation, HTTP call, timeout/error mapping.
-- Preserve legacy behavior covered by tests unless the user approves a behavior change.
+After investigation is complete, synthesize the subagent results into a short implementation plan and switch to Plan mode before coding.
 
-## Verification Order
+- Call `SwitchMode` with `target_mode_id: "plan"` after the source-of-truth, contract, and test-mapping findings are known.
+- In Plan mode, present the extracted boundary, proposed files, endpoint contract, test coverage, verification commands, and adapter/UI scope decision.
+- Do not start implementation edits until the plan is accepted and the conversation is back in Agent mode.
 
-1. Service API tests derived from legacy behavior.
-2. Runtime endpoint smoke with concrete request/response evidence.
-3. Legacy adapter tests if an adapter was implemented.
-4. Demo app smoke check only after contract parity is proven.
+## Implementation Loop
 
-## Closeout Format
+1. Create the smallest TypeScript service that proves the extracted capability.
+2. Keep business logic modular and independent from Broadleaf entities.
+3. Add contract/API tests derived from legacy behavior before broadening scope.
+4. Run the narrowest service test command first.
+5. Fix only failures related to the extracted capability.
+6. Do not move unrelated catalog, cart, checkout, payment, tax, inventory, product, or SKU ownership.
+
+## Proof Order
+
+1. API/contract tests pass.
+2. Run `service-runtime-smoke` as the final service proof:
+   - Start or verify the local service.
+   - Hit health and primary business endpoints.
+   - Report status codes and key response fields.
+3. If a demo app is involved, verify it only as baseline/context unless the user explicitly asked for adapter integration.
+4. Do not claim the demo app is powered by the new service unless an adapter was actually implemented and verified.
+
+## Shipping Pilot Defaults
+
+When the named capability is shipping estimation:
+
+- Source of truth: Broadleaf fulfillment pricing providers and fulfillment pricing tests.
+- Service owns: fulfillment/shipping estimate calculation, band validation, and explain responses.
+- Broadleaf keeps: catalog, cart, checkout, payment, tax, inventory, products, and SKUs.
+- `demosite` role: baseline visual context and final "still works" smoke only.
+- Out of scope for the first pilot: wiring `demosite` checkout to the new service.
+- Final demo proof: API tests plus endpoint smoke evidence; then show `demosite` still runs separately.
+
+## Final Handoff
+
+Use this format:
 
 ```markdown
 ## Extracted Capability
