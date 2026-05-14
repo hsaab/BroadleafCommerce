@@ -4,15 +4,13 @@
 
 const fs = require("node:fs");
 
-const ASK_RESPONSE = {
-  permission: "ask",
+const BLOCK_RESPONSE = {
+  continue: false,
   user_message:
-    "This prompt appears to contain a private key, API token, or credential assignment. Do you want to send it anyway?",
-  agent_message:
-    "A hook detected possible credentials in the prompt. Do not quote or repeat the secret unless the user explicitly approves.",
+    "This prompt appears to contain a private key, API token, or credential assignment. Remove or redact the secret before sending.",
 };
 
-const ALLOW_RESPONSE = { permission: "allow" };
+const ALLOW_RESPONSE = { continue: true };
 
 const SECRET_PATTERNS = [
   {
@@ -48,7 +46,7 @@ try {
   const detection = detectSecret(promptText);
 
   if (detection) {
-    writeJson(ASK_RESPONSE);
+    writeJson(BLOCK_RESPONSE);
     process.exit(0);
   }
 
