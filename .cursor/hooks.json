@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": ".cursor/hooks/secrets-prompt-guard.js",
+        "matcher": "UserPromptSubmit",
+        "timeout": 2,
+        "failClosed": false
+      }
+    ]
+  }
+}
