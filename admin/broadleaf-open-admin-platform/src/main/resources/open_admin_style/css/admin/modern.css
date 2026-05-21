@@ -1,0 +1,275 @@
+/*-
+ * #%L
+ * BroadleafCommerce Open Admin Platform
+ * %%
+ * Copyright (C) 2009 - 2026 Broadleaf Commerce
+ * %%
+ * Licensed under the Broadleaf Fair Use License Agreement, Version 1.0
+ * (the "Fair Use License" located  at http://license.broadleafcommerce.org/fair_use_license-1.0.txt)
+ * unless the restrictions on use therein are violated and require payment to Broadleaf in which case
+ * the Broadleaf End User License Agreement (EULA), Version 1.1
+ * (the "Commercial License" located at http://license.broadleafcommerce.org/commercial_license-1.1.txt)
+ * shall apply.
+ * 
+ * Alternatively, the Commercial License may be replaced with a mutually agreed upon license (the "Custom License")
+ * between you and Broadleaf Commerce. You may not use this file except in compliance with the applicable license.
+ * #L%
+ */
+/****************************************
+  ADMIN MODERN THEME OVERRIDES
+****************************************/
+
+:root {
+    --blc-modern-bg: #f5f7fa;
+    --blc-modern-surface: #ffffff;
+    --blc-modern-surface-muted: #f7f9fb;
+    --blc-modern-border: #dce2ea;
+    --blc-modern-border-strong: #c7d0dc;
+    --blc-modern-text: #1f2933;
+    --blc-modern-text-muted: #647084;
+    --blc-modern-nav: #242932;
+    --blc-modern-nav-strong: #1b2028;
+    --blc-modern-accent: #6f8f2f;
+    --blc-modern-accent-strong: #5d7926;
+    --blc-modern-info: #1f9fc9;
+    --blc-modern-radius-md: 8px;
+    --blc-modern-radius-lg: 12px;
+    --blc-modern-shadow-sm: 0 1px 2px rgba(31, 41, 51, 0.08), 0 1px 3px rgba(31, 41, 51, 0.08);
+    --blc-modern-shadow-md: 0 12px 28px rgba(31, 41, 51, 0.12);
+    --blc-modern-shadow-focus: 0 0 0 3px rgba(31, 159, 201, 0.24);
+    --blc-modern-transition: 160ms ease;
+}
+
+body {
+    background: linear-gradient(180deg, #fbfcfd 0, var(--blc-modern-bg) 280px);
+    color: var(--blc-modern-text);
+    text-rendering: optimizeLegibility;
+}
+
+a {
+    color: var(--blc-modern-text);
+    transition: color var(--blc-modern-transition), opacity var(--blc-modern-transition);
+}
+
+a:hover,
+a:focus {
+    color: var(--blc-modern-accent-strong);
+}
+
+:is(a, button, .button, input, select, textarea, .dropdown-toggle):focus-visible {
+    outline: 0;
+    box-shadow: var(--blc-modern-shadow-focus);
+}
+
+.app-content .side-nav {
+    background: linear-gradient(180deg, var(--blc-modern-nav) 0, var(--blc-modern-nav-strong) 100%);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.app-content .side-nav ul li a {
+    opacity: 0.72;
+    transition: background-color var(--blc-modern-transition), opacity var(--blc-modern-transition), transform var(--blc-modern-transition);
+}
+
+.app-content .side-nav ul li a:hover,
+.app-content .side-nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.08);
+    opacity: 1;
+}
+
+.app-content .content .site-bar {
+    background: rgba(31, 41, 51, 0.96);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 24px rgba(31, 41, 51, 0.12);
+}
+
+.app-content .content .site-bar .button,
+.app-content .content .sandbox-bar .sandbox-actions .button {
+    border-radius: var(--blc-modern-radius-md);
+    transition: background-color var(--blc-modern-transition), color var(--blc-modern-transition);
+}
+
+.app-content .content .site-bar .account-info .dropdown-menu,
+.app-content .content .site-bar .language-selector .dropdown-menu,
+.app-content .content .site-bar .timezone-selector .dropdown-menu,
+.dropdown-menu {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--blc-modern-radius-md);
+    box-shadow: var(--blc-modern-shadow-md);
+    overflow: hidden;
+}
+
+.app-content .content .section-content .main-content .content-area-title-bar,
+.modal-header {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--blc-modern-border);
+    box-shadow: var(--blc-modern-shadow-sm);
+}
+
+.app-content .content .section-content .main-content .content-area-title-bar h3,
+.modal-header h3 {
+    color: var(--blc-modern-text);
+    font-weight: 500;
+}
+
+.app-content .content .section-content .main-content .content-area-title-bar h4,
+.app-content .content .section-content .main-content .content-area-title-bar .page-actions .stat {
+    color: var(--blc-modern-text-muted);
+}
+
+.app-content .content .section-content .main-content .content-yield,
+.modal-body .content-yield {
+    background: transparent;
+}
+
+.app-content .fieldset-card,
+.card,
+.modal-body .fieldset-card {
+    background: var(--blc-modern-surface);
+    border: 1px solid var(--blc-modern-border);
+    border-radius: var(--blc-modern-radius-lg);
+    box-shadow: var(--blc-modern-shadow-sm);
+    overflow: hidden;
+}
+
+.app-content .fieldset-card .titlebar,
+.modal-body .fieldset-card .titlebar {
+    background: linear-gradient(180deg, var(--blc-modern-surface) 0, var(--blc-modern-surface-muted) 100%);
+    border-bottom: 1px solid var(--blc-modern-border);
+    color: var(--blc-modern-text);
+}
+
+.app-content .fieldset-card .fieldset-card-content label,
+.modal-body .fieldset-card .fieldset-card-content label,
+label {
+    color: var(--blc-modern-text);
+}
+
+.button {
+    border: 1px solid transparent;
+    border-radius: var(--blc-modern-radius-md);
+    box-shadow: var(--blc-modern-shadow-sm);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background-color var(--blc-modern-transition), box-shadow var(--blc-modern-transition), color var(--blc-modern-transition), transform var(--blc-modern-transition);
+}
+
+.button:hover,
+.button:focus {
+    box-shadow: var(--blc-modern-shadow-md);
+    transform: translateY(-1px);
+}
+
+.button.secondary,
+.button.dark,
+.button {
+    background-color: #374151;
+}
+
+.button.secondary:hover,
+.button.dark:hover,
+.button:hover {
+    background-color: #4b5563;
+}
+
+.button.primary {
+    background-color: var(--blc-modern-accent);
+    border-color: var(--blc-modern-accent-strong);
+}
+
+.button.primary:hover,
+.button.primary:focus,
+.button.primary:active {
+    background-color: var(--blc-modern-accent-strong);
+}
+
+button:disabled,
+button.disabled,
+.button.disabled {
+    box-shadow: none;
+    transform: none;
+}
+
+:is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], select, textarea, .form-control) {
+    background-color: var(--blc-modern-surface);
+    border: 1px solid var(--blc-modern-border-strong);
+    border-radius: var(--blc-modern-radius-md);
+    box-shadow: none;
+    color: var(--blc-modern-text);
+    transition: border-color var(--blc-modern-transition), box-shadow var(--blc-modern-transition), background-color var(--blc-modern-transition);
+}
+
+:is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], select, textarea, .form-control):focus {
+    background-color: #ffffff;
+    border-color: var(--blc-modern-info);
+    box-shadow: var(--blc-modern-shadow-focus);
+}
+
+.listgrid-header-wrapper {
+    background: var(--blc-modern-surface);
+    border: 1px solid var(--blc-modern-border);
+    border-radius: var(--blc-modern-radius-lg) var(--blc-modern-radius-lg) 0 0;
+    box-shadow: var(--blc-modern-shadow-sm);
+    overflow: hidden;
+}
+
+.table {
+    background: var(--blc-modern-surface);
+}
+
+.table thead > tr > th {
+    background-color: var(--blc-modern-surface-muted);
+    border-bottom: 1px solid var(--blc-modern-border);
+    color: var(--blc-modern-text-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.table tbody > tr > td {
+    border-top: 1px solid var(--blc-modern-border);
+    color: var(--blc-modern-text);
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #fbfcfd;
+}
+
+.table tbody > tr:hover > td {
+    background-color: #eef6ef;
+}
+
+.listgrid-filter-sort-container {
+    background: transparent;
+}
+
+.modal {
+    border-radius: var(--blc-modern-radius-lg);
+    box-shadow: var(--blc-modern-shadow-md);
+    overflow: hidden;
+}
+
+.modal-body {
+    background: var(--blc-modern-bg);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--blc-modern-border);
+}
+
+body.login {
+    background: radial-gradient(circle at top, #ffffff 0, var(--blc-modern-bg) 54%, #edf1f5 100%);
+}
+
+body.login .login-box {
+    border: 1px solid var(--blc-modern-border);
+    border-radius: var(--blc-modern-radius-lg);
+    box-shadow: var(--blc-modern-shadow-md);
+}
+
+body.login .account-actions ul li a {
+    color: var(--blc-modern-accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
