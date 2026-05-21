@@ -90,9 +90,15 @@ a:focus {
 
 .app-content .content .site-bar .account-info .dropdown-menu,
 .app-content .content .site-bar .language-selector .dropdown-menu,
-.app-content .content .site-bar .timezone-selector .dropdown-menu,
-.dropdown-menu {
+.app-content .content .site-bar .timezone-selector .dropdown-menu {
     border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--blc-modern-radius-md);
+    box-shadow: var(--blc-modern-shadow-md);
+    overflow: hidden;
+}
+
+.dropdown-menu {
+    border: 1px solid var(--blc-modern-border);
     border-radius: var(--blc-modern-radius-md);
     box-shadow: var(--blc-modern-shadow-md);
     overflow: hidden;
@@ -163,12 +169,22 @@ label {
 .button.dark,
 .button {
     background-color: #374151;
+    color: #ffffff;
 }
 
 .button.secondary:hover,
 .button.dark:hover,
 .button:hover {
     background-color: #4b5563;
+}
+
+.button.ghost {
+    background-color: transparent;
+}
+
+.button.ghost:hover,
+.button.ghost:focus {
+    background-color: transparent;
 }
 
 .button.primary {
