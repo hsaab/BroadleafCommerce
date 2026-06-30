@@ -233,8 +233,10 @@ function validateOptionItemRequirements(
       return;
     }
 
+    const usesFlatRates = option.useFlatRates === true;
+
     items.forEach((item, itemIndex) => {
-      if (!isRecord(item) || hasFlatRateForOption(item, option.optionId)) {
+      if (!isRecord(item) || (usesFlatRates && hasFlatRateForOption(item, option.optionId))) {
         return;
       }
 

@@ -94,6 +94,37 @@ describe("shipping estimate contract", () => {
     assert.equal(body.error.fields[0].code, "REQUIRED");
   });
 
+  it("requires band inputs when flat rates are present but useFlatRates is disabled", async () => {
+    const response = await postEstimate(baseUrl, {
+      currency: "USD",
+      fulfillmentGroup: {
+        items: [
+          {
+            itemId: "line-1",
+            quantity: 1,
+            flatRates: [{ optionId: "standard", amount: "3.00" }],
+          },
+        ],
+      },
+      options: [
+        {
+          optionId: "standard",
+          type: "BANDED_PRICE",
+          useFlatRates: false,
+          bands: [{ minimumAmount: "10.00", resultAmount: "4.00", resultAmountType: "RATE" }],
+        },
+      ],
+    });
+
+    assert.equal(response.status, 422);
+    const body = await response.json();
+
+    assert.equal(body.error.code, "VALIDATION_ERROR");
+    assert.equal(body.error.fields[0].path, "fulfillmentGroup.items[0]");
+    assert.equal(body.error.fields[0].code, "REQUIRED");
+    assert.match(body.error.fields[0].message, /requires totalItemAmount or unitPrice/);
+  });
+
   it("keeps the legacy duplicate-minimum behavior by choosing the cheapest result", async () => {
     const response = await postEstimate(baseUrl, {
       currency: "USD",
