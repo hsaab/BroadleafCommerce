@@ -125,6 +125,37 @@ describe("shipping estimate contract", () => {
     assert.match(body.error.fields[0].message, /requires totalItemAmount or unitPrice/);
   });
 
+  it("preserves weight precision in banded-weight explanation metadata", async () => {
+    const response = await postEstimate(baseUrl, {
+      currency: "USD",
+      fulfillmentGroup: {
+        items: [
+          {
+            itemId: "line-1",
+            quantity: 1,
+            weight: {
+              amount: "5",
+              unit: "OUNCES",
+            },
+          },
+        ],
+      },
+      options: [
+        {
+          optionId: "standard",
+          type: "BANDED_WEIGHT",
+          bands: [{ minimumWeight: "0.25", resultAmount: "6.00", resultAmountType: "RATE" }],
+        },
+      ],
+    });
+
+    assert.equal(response.status, 200);
+    const body = await response.json();
+
+    assert.equal(body.estimates[0].amount, "6.00");
+    assert.equal(body.estimates[0].explanation.basisTotal, "0.3125");
+  });
+
   it("keeps the legacy duplicate-minimum behavior by choosing the cheapest result", async () => {
     const response = await postEstimate(baseUrl, {
       currency: "USD",

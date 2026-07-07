@@ -57,9 +57,17 @@ export class Decimal {
   }
 
   toDecimalString(): string {
-    const moneyString = this.toMoneyString();
+    if (this.scale === 0) {
+      return this.units.toString();
+    }
 
-    return moneyString;
+    const sign = this.units < 0n ? "-" : "";
+    const absolute = this.units < 0n ? -this.units : this.units;
+    const digits = absolute.toString().padStart(this.scale + 1, "0");
+    const whole = digits.slice(0, digits.length - this.scale);
+    const fraction = digits.slice(digits.length - this.scale);
+
+    return `${sign}${whole}.${fraction}`;
   }
 
   private align(targetScale: number): bigint {
